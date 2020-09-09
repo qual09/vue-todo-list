@@ -38,6 +38,7 @@ form {
 }
 
 input[type="text"] {
+  border: 1px solid #555;
   flex: 10;
   padding: 5px;
 }

@@ -35,4 +35,8 @@ header a:hover {
 header a.router-link-exact-active {
   text-decoration: underline;
 }
+
+#nav {
+  margin: 5px 0;
+}
 </style>
