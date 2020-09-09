@@ -1,86 +1,40 @@
 <template>
   <div id="app">
     <Header />
-    <AddTodo v-on:add-todo="addTodo" />
-    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" />
+    <router-view />
   </div>
 </template>
 
 <script>
 import Header from "./components/layout/Header";
-import Todos from "./components/Todos";
-import AddTodo from "./components/AddTodo";
-import axios from "axios";
 
 export default {
-  name: "App",
+  name: "app",
   components: {
     Header,
-    Todos,
-    AddTodo,
-  },
-  data() {
-    return {
-      todos: [],
-    };
-  },
-  methods: {
-    deleteTodo(id) {
-      axios
-        .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
-        .then(() => (this.todos = this.todos.filter((todo) => todo.id !== id)))
-        .catch((err) => console.log(err));
-    },
-    addTodo(newTodo) {
-      const { title, completed } = newTodo;
-      // Below is the same as above
-      // let title2 = newTodo.title;
-      // let completed2 = newTodo.completed;
-      // console.log(title2, completed2);
-
-      axios
-        .post("https://jsonplaceholder.typicode.com/todos", {
-          title,
-          completed,
-        })
-        .then((res) => {
-          console.log(res);
-          this.todos = [...this.todos, res.data];
-        })
-        .catch((err) => console.log(err));
-    },
-  },
-  created() {
-    axios
-      .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
-      .then((res) => (this.todos = res.data))
-      .catch((err) => console.log(err));
   },
 };
 </script>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* #app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.4;
+#nav {
+  padding: 30px;
 }
 
-.btn {
-  display: inline-block;
-  border: none;
-  background-color: #555;
-  color: white;
-  padding: 7px 20px;
-  cursor: pointer;
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
 }
 
-.btn:hover {
-  background-color: #666;
-}
+#nav a.router-link-exact-active {
+  color: #42b983;
+} */
 </style>
