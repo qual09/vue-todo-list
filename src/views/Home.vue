@@ -22,31 +22,36 @@ export default {
     };
   },
   methods: {
+    // Delete
     deleteTodo(id) {
       axios
         .delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
         .then(() => (this.todos = this.todos.filter((todo) => todo.id !== id)))
         .catch((err) => console.log(err));
     },
+
+    // Add
     addTodo(newTodo) {
       const { title, completed } = newTodo;
-      // Below is the same as above
-      // let title2 = newTodo.title;
-      // let completed2 = newTodo.completed;
-      // console.log(title2, completed2);
 
-      axios
-        .post("https://jsonplaceholder.typicode.com/todos", {
-          title,
-          completed,
-        })
-        .then((res) => {
-          console.log(res);
-          this.todos = [...this.todos, res.data];
-        })
-        .catch((err) => console.log(err));
+      if (title) {
+        axios
+          .post("https://jsonplaceholder.typicode.com/todos", {
+            title,
+            completed,
+          })
+          .then((res) => {
+            console.log(res);
+            this.todos = [...this.todos, res.data];
+          })
+          .catch((err) => console.log(err));
+      } else {
+        alert("Field is empty!");
+      }
     },
   },
+
+  // Get list
   created() {
     axios
       .get("https://jsonplaceholder.typicode.com/todos?_limit=10")
